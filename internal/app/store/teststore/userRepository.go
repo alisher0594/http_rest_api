@@ -25,6 +25,15 @@ func (r *UserRepository) Create(u *model.User) error {
 	return nil
 }
 
+func (r *UserRepository) Find(id int) (*model.User, error) {
+	u, ok := r.users[id]
+	if !ok {
+		return nil, store.ErrRecordNotFound
+	}
+
+	return u, nil
+}
+
 func (r *UserRepository) FindByEmail(email string) (*model.User, error) {
 	for _, u := range r.users {
 		if u.Email == email {
